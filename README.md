@@ -52,7 +52,7 @@ While testing, if the interval between pulses was too short and the direction pi
 * 1 raspberry pi 3 b+
 * 2 dc motors 
 * 1 ps4 controller
-* 1 A4988 stepper motor controller
+* 1 A4988 stepper motor controller 
 * 1 5V powerbank
 * 1 9 -12 V battery
 
