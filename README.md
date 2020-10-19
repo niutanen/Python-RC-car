@@ -42,7 +42,7 @@ direction | ↑   |→  | ↓  | ←
 If  is set to high, the A4988 is in half-stepping mode which adds a step allowing driving of a single motor at a time with the following cycle:
 
 step      | 1 |  2 |  3 |  4 |  5 |  6 |  7 |  8
--------------------|----|----|----|----|----|---
+----------|---|----|----|----|----|----|----|----
 motor1    |.7 |  0 |-.7 | -1 |-.7 |  0 | .7 |  1
 motor2    |.7 |  1 | .7 |  0 |-.7 | -1 |-.7 |  0
 --------------|----|----|----|----|----|----|----
