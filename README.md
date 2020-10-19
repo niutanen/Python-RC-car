@@ -44,7 +44,7 @@ step      | 1 |  2 |  3 |  4 |  5 |  6 |  7 |  8
 ----------|:---:|:----:|:----:|:----:|:----:|:----:|:----:|:----:
 motor1    |.7 |  0 |-.7 | -1 |-.7 |  0 | .7 |  1
 motor2    |.7 |  1 | .7 |  0 |-.7 | -1 |-.7 |  0
-direction | ↑ |  ↗ |  → |  ↘ |  ↓ |  ↙ |  ← |  ↖
+direction | ↑ |  ↗ |  → |  ↘ |  ↓ |  ↙ |  ← |  ↖ 
 
 While testing, if the interval between pulses was too short and the direction pin was was pulled to high the A4988 would not register some of the steps, leading to inconsistent controls. My original was to return the controller to the starting step after the release of any button by sending pulses until it was in the start "position", but if the motor controller was missing steps this would not work. By resetting the A4988 before each command this was rectified. If the A4988 would miss a step, the command could be resent, the board would reset and retried.  
 ## Parts list:
