@@ -3,12 +3,12 @@
 ## Motivation
 
 I was bored, and decided to make a remote controlled car. However, I did not want to spend money on something I was likely to use for a couple of hours and then forget about. Therefore, I decided to make it out of components I had lying around. In my mind a RC car would require the following list of items:
-..* 1 motor to go straight and backward
-..# 1 servo or motor to change direction
-..# 1 battery to drive the motors
-..* 1 control board to regulate the power to the motors
-..* 1 data reciever
-..* 1 data transmitter 
+* 1 motor to go straight and backward
+* 1 servo or motor to change direction
+* 1 battery to drive the motors
+* 1 control board to regulate the power to the motors
+* 1 data reciever
+* 1 data transmitter 
 
 I looked around for what components I had that would fit these purposes and found that i had a couple of motors that could be used for the power and replace the servo with direct directional driving. I could use an arduino for the control system, but it did not have wireless connectivity so I decided that rather than buy a new wireless module, I could buy a used raspberry pi and ps4 remote for a comparable price that would give me greater flexibility in projects in the future. I found a cheap powerbank that I had not been using for the battery, and got to work on getting the motors to spin. In case of shorting my connections, i first started the wiring with an arduino board.
 
@@ -32,29 +32,29 @@ By playing around with the inputs and reading the datasheet I found out that the
 
 When step pin and direction pins are set to high both motors stop.
 When setting step to low it cycles through the following settings:
-step      |: 1  :|: 2 :|: 3  :|: 4  :
-----------|:----:|:---:|:----:|:----:
-motor1    |: 1  :|:-1 :|:-1  :|: 1:
-motor2    |: 1  :|: 1 :|:-1  :|: 1 :
-direction |: ↑  :|:→  :|: ↓  :|: ← :
+step      | 1  | 2 | 3  | 4  
+----------|:--:|:--:|:----:|:----:
+motor1    | 1  |-1 |-1  | 1
+motor2    | 1  | 1 |-1  | 1 
+direction | ↑  |→  | ↓  | ← 
 
 If  is set to high, the A4988 is in half-stepping mode which adds a step allowing driving of a single motor at a time with the following cycle:
 
-step      |: 1 :|:  2 :|:  3 :|:  4 :|:  5 :|:  6 :|:  7 :|:  8:
+step      | 1 |  2 |  3 |  4 |  5 |  6 |  7 |  8
 ----------|:---:|:----:|:----:|:----:|:----:|:----:|:----:|:----:
-motor1    |:.7 :|:  0 :|:-.7 :|: -1 :|:-.7 :|:  0 :|: .7 :|:  1:
-motor2    |:.7 :|:  1 :|: .7 :|:  0 :|:-.7 :|: -1 :|:-.7 :|:  0:
-direction |: ↑ :|:  ↗ :|:  → :|:  ↘ :|:  ↓ :|:  ↙ :|:  ← :|:  ↖:
+motor1    |.7 |  0 |-.7 | -1 |-.7 |  0 | .7 |  1
+motor2    |.7 |  1 | .7 |  0 |-.7 | -1 |-.7 |  0
+direction | ↑ |  ↗ |  → |  ↘ |  ↓ |  ↙ |  ← |  ↖
 
 While testing, if the interval between pulses was too short and the direction pin was was pulled to high the A4988 would not register some of the steps, leading to inconsistent controls. My original was to return the controller to the starting step after the release of any button by sending pulses until it was in the start "position", but if the motor controller was missing steps this would not work. By resetting the A4988 before each command this was rectified. If the A4988 would miss a step, the command could be resent, the board would reset and retried. 
 
 
 ## Parts list:
 
-⋅⋅* 1 raspberry pi 3 b+
-⋅⋅* 2 dc motors 
-⋅⋅* 1 ps4 controller
-⋅⋅* 1 A4988 stepper motor controller
-⋅⋅* 1 5V powerbank
-⋅⋅* 1 9 -12 V battery
+* 1 raspberry pi 3 b+
+* 2 dc motors 
+* 1 ps4 controller
+* 1 A4988 stepper motor controller
+* 1 5V powerbank
+* 1 9 -12 V battery
 
