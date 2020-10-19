@@ -25,38 +25,38 @@ I decided to do some research. I found out that the arduino pins can provide 5v 
 After thiking for a while, I remembered that I had motor controllers on my 3D printer. Although the controllers were for stepper motors, perhaps they could be hacked to run in the setup I had. In principle it should work, so i grabbed the components from the printer and put my research skills to test. I found [this forum post](https://www.robotshop.com/community/forum/t/very-low-cost-2a-dual-dc-motor-driver-with-cool-features/13183). I understood the principle so I looked up the [datasheet](https://www.pololu.com/file/0J450/a4988_DMOS_microstepping_driver_with_translator.pdf) of my controller and set it up. After getting the basic components hooked up and tested with the arduino, I moved to the raspberry pi. To make it as simple as possible I chose to wrote the control program in python (I may change to C if I need faster inputs in the future). 
 
 The code uses the following raspberry pi compatible python libraries: 
-..* [gpiozero](https://gpiozero.readthedocs.io/en/stable/) - for the pin outputs
-..* [pyPS4Controlller](https://pypi.org/project/pyPS4Controller/) - for easy ps4 commands
+⋅⋅* [gpiozero](https://gpiozero.readthedocs.io/en/stable/) - for the pin outputs
+⋅⋅* [pyPS4Controlller](https://pypi.org/project/pyPS4Controller/) - for easy ps4 commands
 
 By playing around with the inputs and reading the datasheet I found out that the motor cycled through the following set of outputs:
 
 When step pin and direction pins are set to high both motors stop.
 When setting step to low it cycles through the following settings:
-step      | 1   2   3   4
---------------------------
-motor1    | 1  -1  -1   1
-motor2    | 1   1  -1   1
---------------------------
-direction | ↑   →   ↓   ← 
+step      | 1  | 2  | 3  | 4
+----------|----|----|----|----
+motor1    | 1  |-1  |-1  | 1
+motor2    | 1  | 1  |-1  | 1
+----------|----|----|----|----
+direction | ↑   |→  | ↓  | ← 
 
 If  is set to high, the A4988 is in half-stepping mode which adds a step allowing driving of a single motor at a time with the following cycle:
 
-step      | 1   2   3   4   5   6   7   8
-------------------------------------------
-motor1    |.7   0 -.7  -1 -.7   0  .7   1
-motor2    |.7   1  .7   0 -.7  -1 -.7   0
-------------------------------------------
-direction | ↑   ↗   →   ↘   ↓   ↙   ←   ↖
+step      | 1 |  2 |  3 |  4 |  5 |  6 |  7 |  8
+-------------------|----|----|----|----|----|---
+motor1    |.7 |  0 |-.7 | -1 |-.7 |  0 | .7 |  1
+motor2    |.7 |  1 | .7 |  0 |-.7 | -1 |-.7 |  0
+--------------|----|----|----|----|----|----|----
+direction | ↑ |  ↗ |  → |  ↘ |  ↓ |  ↙ |  ← |  ↖
 
 While testing, if the interval between pulses was too short and the direction pin was was pulled to high the A4988 would not register some of the steps, leading to inconsistent controls. My original was to return the controller to the starting step after the release of any button by sending pulses until it was in the start "position", but if the motor controller was missing steps this would not work. By resetting the A4988 before each command this was rectified. If the A4988 would miss a step, the command could be resent, the board would reset and retried. 
 
 
 ## Parts list:
 
-..* 1 raspberry pi 3 b+
-..* 2 dc motors 
-..* 1 ps4 controller
-..* 1 A4988 stepper motor controller
-..* 1 5V powerbank
-..* 1 9 -12 V battery
+⋅⋅* 1 raspberry pi 3 b+
+⋅⋅* 2 dc motors 
+⋅⋅* 1 ps4 controller
+⋅⋅* 1 A4988 stepper motor controller
+⋅⋅* 1 5V powerbank
+⋅⋅* 1 9 -12 V battery
 
