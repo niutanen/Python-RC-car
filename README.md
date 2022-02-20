@@ -34,6 +34,7 @@ After thiking for a while, I remembered that I had motor controllers on my 3D pr
 * 1 ps4 controller
 * 1 A4988 stepper motor controller 
 * 1 5V powerbank
+* 1 9 -12 V battery
 
 ## The code:
 The code uses the following raspberry pi compatible python libraries: 
@@ -59,6 +60,4 @@ motor2    |.7 |  1 | .7 |  0 |-.7 | -1 |-.7 |  0
 direction | ↑ |  ↗ |  → |  ↘ |  ↓ |  ↙ |  ← |  ↖  
 
 While testing, if the interval between pulses was too short and the direction pin was was pulled to high the A4988 would not register some of the steps, leading to inconsistent controls. My original was to return the controller to the starting step after the release of any button by sending pulses until it was in the start "position", but if the motor controller was missing steps this would not work. By resetting the A4988 before each command this was rectified. If the A4988 would miss a step, the command could be resent, the board would reset and retried.  
-
-* 1 9 -12 V battery
 
