@@ -23,8 +23,17 @@ I decided to do some research. I found out that the arduino pins can provide 5v 
 ## Using the A4988 to drive DC motors
 
 After thiking for a while, I remembered that I had motor controllers on my 3D printer. Although the controllers were for stepper motors, perhaps they could be hacked to run in the setup I had. In principle it should work, so i grabbed the components from the printer and put my research skills to test. I found [this forum post](https://www.robotshop.com/community/forum/t/very-low-cost-2a-dual-dc-motor-driver-with-cool-features/13183). I understood the principle so I looked up the [datasheet](https://www.pololu.com/file/0J450/a4988_DMOS_microstepping_driver_with_translator.pdf) of my controller and set it up. After getting the basic components hooked up and tested with the arduino, I moved to the raspberry pi. To make it as simple as possible I chose to write the control program in python (I may change to C if I need faster inputs in the future). 
+
+
 ![image](https://user-images.githubusercontent.com/35771181/154839701-328e4d8f-546e-4992-8a2c-d71574f8bde8.png)
 
+## Parts list:
+
+* 1 raspberry pi 3 b+
+* 2 dc motors 
+* 1 ps4 controller
+* 1 A4988 stepper motor controller 
+* 1 5V powerbank
 
 The code uses the following raspberry pi compatible python libraries: 
 * [gpiozero](https://gpiozero.readthedocs.io/en/stable/) - for the pin outputs
@@ -49,12 +58,6 @@ motor2    |.7 |  1 | .7 |  0 |-.7 | -1 |-.7 |  0
 direction | ↑ |  ↗ |  → |  ↘ |  ↓ |  ↙ |  ← |  ↖  
 
 While testing, if the interval between pulses was too short and the direction pin was was pulled to high the A4988 would not register some of the steps, leading to inconsistent controls. My original was to return the controller to the starting step after the release of any button by sending pulses until it was in the start "position", but if the motor controller was missing steps this would not work. By resetting the A4988 before each command this was rectified. If the A4988 would miss a step, the command could be resent, the board would reset and retried.  
-## Parts list:
 
-* 1 raspberry pi 3 b+
-* 2 dc motors 
-* 1 ps4 controller
-* 1 A4988 stepper motor controller 
-* 1 5V powerbank
 * 1 9 -12 V battery
 
