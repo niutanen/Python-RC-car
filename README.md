@@ -35,6 +35,7 @@ After thiking for a while, I remembered that I had motor controllers on my 3D pr
 * 1 A4988 stepper motor controller 
 * 1 5V powerbank
 
+## The code:
 The code uses the following raspberry pi compatible python libraries: 
 * [gpiozero](https://gpiozero.readthedocs.io/en/stable/) - for the pin outputs
 * [pyPS4Controlller](https://pypi.org/project/pyPS4Controller/) - for easy ps4 commands
