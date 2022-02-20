@@ -22,7 +22,9 @@ I decided to do some research. I found out that the arduino pins can provide 5v 
 
 ## Using the A4988 to drive DC motors
 
-After thiking for a while, I remembered that I had motor controllers on my 3D printer. Although the controllers were for stepper motors, perhaps they could be hacked to run in the setup I had. In principle it should work, so i grabbed the components from the printer and put my research skills to test. I found [this forum post](https://www.robotshop.com/community/forum/t/very-low-cost-2a-dual-dc-motor-driver-with-cool-features/13183). I understood the principle so I looked up the [datasheet](https://www.pololu.com/file/0J450/a4988_DMOS_microstepping_driver_with_translator.pdf) of my controller and set it up. After getting the basic components hooked up and tested with the arduino, I moved to the raspberry pi. To make it as simple as possible I chose to wrote the control program in python (I may change to C if I need faster inputs in the future). 
+After thiking for a while, I remembered that I had motor controllers on my 3D printer. Although the controllers were for stepper motors, perhaps they could be hacked to run in the setup I had. In principle it should work, so i grabbed the components from the printer and put my research skills to test. I found [this forum post](https://www.robotshop.com/community/forum/t/very-low-cost-2a-dual-dc-motor-driver-with-cool-features/13183). I understood the principle so I looked up the [datasheet](https://www.pololu.com/file/0J450/a4988_DMOS_microstepping_driver_with_translator.pdf) of my controller and set it up. After getting the basic components hooked up and tested with the arduino, I moved to the raspberry pi. To make it as simple as possible I chose to write the control program in python (I may change to C if I need faster inputs in the future). 
+![image](https://user-images.githubusercontent.com/35771181/154839701-328e4d8f-546e-4992-8a2c-d71574f8bde8.png)
+
 
 The code uses the following raspberry pi compatible python libraries: 
 * [gpiozero](https://gpiozero.readthedocs.io/en/stable/) - for the pin outputs
